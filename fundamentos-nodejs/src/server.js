@@ -1,14 +1,20 @@
 import http from 'http'
 
+const users = []
+
 const server = http.createServer((req, res) => {
-    const { method, url} = req
+    const { method, url } = req
 
     if(method === 'GET' && url === "/users") {
-        return res.end('users list')
+        return res.setHeader('Content-type', 'application/json').end(JSON.stringify(users))
     }
 
-    if(method === 'PORT' && url === "/users") {
-        return res.end('users create')
+    if(method === 'POST' && url === "/users") {
+        users.push({
+            id: 1,
+            name: 'John Doe',
+            email: 'johndoe@example.com'
+        })
     }
 
     return res.end('Hello world')
